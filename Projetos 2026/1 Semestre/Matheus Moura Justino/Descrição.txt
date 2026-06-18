@@ -1,0 +1,2 @@
+Apresentação: Classificação do Uso do Solo Urbano com Google Earth Engine e Random Forest
+Ocorreu no dia 17/06/2026
