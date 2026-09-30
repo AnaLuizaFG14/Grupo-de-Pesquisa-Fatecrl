@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultura da Produtividade e o Adoecimento Psíquico de Universitários</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0F2A4A;
+      --primary-light: #1E3A8A;
+      --accent: #0D9488;
+      --accent-light: #CCFBF1;
+      --bg-main: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --warning-bg: #FEF3C7;
+      --warning-text: #92400E;
+      --alert-bg: #FEE2E2;
+      --alert-text: #991B1B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0B132B;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      padding: 40px 0;
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      min-width: 1280px;
+      min-height: 720px;
+      background-color: var(--bg-main);
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      padding: 48px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.05) 0%, rgba(248, 250, 252, 0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-category {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .slide-title {
+      font-family: 'Merriweather', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .slide-number {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #EDF2F7;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+      font-family: 'Merriweather', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+    }
+
+    p, li {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--text-main);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    ul.bullet-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .badge-teal {
+      background: var(--accent-light);
+      color: #0F766E;
+    }
+
+    .badge-amber {
+      background: var(--warning-bg);
+      color: var(--warning-text);
+    }
+
+    .badge-red {
+      background: var(--alert-bg);
+      color: var(--alert-text);
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 16px;
+      background: #FFFFFF;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .stat-number {
+      font-family: 'Merriweather', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .cover-slide {
+      background: linear-gradient(135deg, #0F2A4A 0%, #1E3A8A 60%, #0F2A4A 100%);
+      color: #FFFFFF;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+    }
+
+    .cover-slide::before {
+      display: none;
+    }
+
+    .cover-title {
+      font-family: 'Merriweather', serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      max-width: 950px;
+    }
+
+    .cover-subtitle {
+      font-size: 18px;
+      color: #93C5FD;
+      font-weight: 400;
+      margin-bottom: 40px;
+      letter-spacing: 0.5px;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 48px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 24px;
+      text-align: left;
+    }
+
+    .cover-meta-item h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #38BDF8;
+      margin-bottom: 4px;
+    }
+
+    .cover-meta-item p {
+      font-size: 14px;
+      color: #F8FAFC;
+    }
+
+    table.academic-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    table.academic-table th {
+      border-top: 2px solid var(--primary);
+      border-bottom: 1.5px solid var(--primary);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    table.academic-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    table.academic-table tr:last-child td {
+      border-bottom: 2px solid var(--primary);
+    }
+
+    /* SLIDE 9 - TABELA EXATA DA IMAGEM */
+    .table-slide9 {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      background: #FFFFFF;
+    }
+
+    .table-slide9 th {
+      border-top: 2px solid #000000;
+      border-bottom: 2px solid #000000;
+      padding: 9px 12px;
+      font-weight: 700;
+      color: #000000;
+      text-align: left;
+    }
+
+    .table-slide9 th.num-col, .table-slide9 td.num-col {
+      text-align: center;
+    }
+
+    .table-slide9 td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #E5E7EB;
+      color: #000000;
+    }
+
+    .table-slide9 tr:last-child td {
+      border-bottom: 2px solid #000000;
+    }
+
+    .bg-orange-cell {
+      background-color: #FEF3C7 !important;
+    }
+
+    .bg-green-cell {
+      background-color: #DCFCE7 !important;
+    }
+
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 12px;
+    }
+
+    .pipeline-step {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .pipeline-step.active {
+      border-color: var(--accent);
+      background: #F0FDFA;
+    }
+
+    .pipeline-arrow {
+      font-size: 20px;
+      color: var(--text-muted);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: CAPA -->
+  <div class="slide cover-slide">
+    <div>
+      <div style="display: inline-block; background: rgba(13, 148, 136, 0.3); border: 1px solid #0D9488; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; color: #5EEAD4;">
+        INICIAÇÃO CIENTÍFICA (PIBITI / CNPQ)
+      </div>
+      <h1 class="cover-title">Cultura da Produtividade e o Adoecimento Psíquico</h1>
+      <p class="cover-subtitle">Uma Análise Quantitativa em Discentes do Ensino Superior Tecnológico</p>
+    </div>
+
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <h4>Pesquisadora Responsável</h4>
+        <p><strong>Flávia Alessandra da Silva Barbosa</strong></p>
+        <p style="font-size: 12px; color: #94A3B8;">Ciência de Dados</p>
+      </div>
+      <div class="cover-meta-item">
+        <h4>Orientação</h4>
+        <p><strong>Prof. Dr. Jose Augusto Theodosio Pazetti</strong> (Orientação Docente)</p>
+        <p><strong>Profa. Dra. Adelia da Silva Saraiva</strong> (Coorientação)</p>
+      </div>
+      <div class="cover-meta-item">
+        <h4>Instituição de Ensino</h4>
+        <p><strong>Faculdade de Tecnologia da Baixada Santista - Rubens Lara (FATEC-RL)</strong></p>
+        <p style="font-size: 12px; color: #94A3B8;">Apresentação Acadêmica de Grupo de Pesquisa • Ciclo 2025-2026</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: CONTEXTO E PROBLEMATIZAÇÃO -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Contextualização</div>
+        <div class="slide-title">De Onde Surgiu a Pesquisa?</div>
+      </div>
+      <div class="slide-number">Slide 2/12</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card" style="border-top: 4px solid #3B82F6;">
+          <div class="card-title">Vulnerabilidade Estatística</div>
+          <p style="margin-bottom: 12px;"><strong>Cenário Nacional de Saúde Mental:</strong> Relatórios do Panorama da Saúde Mental (Instituto Cactus / AtlasIntel) identificam jovens de 16 a 24 anos com o menor Índice Contínuo de Avaliação da Saúde Mental (ICASM).</p>
+          <div style="background: #EFF6FF; padding: 12px; border-radius: 6px; font-size: 13px; color: #1E40AF;">
+            <strong>Ambiente Acadêmico de Risco:</strong> O Censo da Educação Superior aponta que mais de 60% das matrículas concentram-se nessa faixa etária, sugerindo o ambiente universitário como espaço crítico de vulnerabilidade psíquica.
+          </div>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title">A Sociedade do Desempenho</div>
+          <p style="margin-bottom: 12px;"><strong>Referencial Teórico (Han, 2010; 2024):</strong> O filósofo Byung-Chul Han descreve a passagem da sociedade disciplinar para a sociedade do desempenho, na qual não há mais vigilância externa coercitiva.</p>
+          <div style="background: #F0FDFA; padding: 12px; border-radius: 6px; font-size: 13px; color: #0F766E; margin-bottom: 12px;">
+            <strong>O Paradoxo da Autoexploração:</strong> O indivíduo torna-se simultaneamente explorador e explorado de si próprio, instaurando um ciclo de hiperatividade, multitarefas e culpa diante de metas inatingíveis.
+          </div>
+          <div style="border-left: 3px solid var(--accent); padding-left: 10px; font-weight: 700; font-size: 13.5px; color: var(--primary);">
+            Pergunta Central: Qual a relação empírica entre práticas de produtividade e escores de ansiedade, depressão e burnout?
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Iniciação Científica • FATEC Baixada Santista</span>
+      <span>Referencial Teórico: Byung-Chul Han (2010, 2024)</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: OBJETIVOS -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Diretrizes</div>
+        <div class="slide-title">Objetivo Geral e Eixos Específicos</div>
+      </div>
+      <div class="slide-number">Slide 3/12</div>
+    </div>
+
+    <div class="slide-body" style="flex-direction: column; justify-content: center; gap: 24px;">
+      <div class="grid-3">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div style="font-size: 20px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">1. Caracterizar</div>
+          <p style="font-size: 14px; color: var(--text-main);">Mapear o perfil sociodemográfico, as rotinas acadêmicas, os padrões de sono e as horas de estudo/trabalho dos discentes da FATEC Baixada Santista - Rubens Lara.</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--primary-light);">
+          <div style="font-size: 20px; font-weight: 700; color: var(--primary-light); margin-bottom: 8px;">2. Correlacionar</div>
+          <p style="font-size: 14px; color: var(--text-main);">Identificar associações estatisticamente significativas entre indicadores de pressão por desempenho/hábitos e os desfechos psicométricos de ansiedade, depressão e burnout.</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #8B5CF6;">
+          <div style="font-size: 20px; font-weight: 700; color: #8B5CF6; margin-bottom: 8px;">3. Propor</div>
+          <p style="font-size: 14px; color: var(--text-main);">Subsidiar diretrizes concretas e hipóteses de intervenção institucional que possam apoiar a gestão pedagógica na promoção da saúde mental discente.</p>
+        </div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 1px solid var(--border); border-left: 6px solid var(--accent); padding: 18px; border-radius: 8px; text-align: center;">
+        <p style="font-size: 16px; font-family: 'Merriweather', serif; color: var(--primary); font-weight: 700;">
+          Pesquisa de natureza quantitativa, descritiva e correlacional
+        </p>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Metodologia Quantitativa • FATEC-RL</span>
+      <span>Ciência de Dados a serviço do bem-estar discente</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: INSTRUMENTOS E DESENHO -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Psicometria</div>
+        <div class="slide-title">Instrumentos e Desenho Metodológico</div>
+      </div>
+      <div class="slide-number">Slide 4/12</div>
+    </div>
+
+    <div class="slide-body" style="flex-direction: column; justify-content: center;">
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <table class="academic-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Construto Avaliado</th>
+              <th style="width: 33%;">Instrumento Utilizado</th>
+              <th style="width: 45%;">Estrutura e Operacionalização</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Burnout Acadêmico</strong></td>
+              <td>OLBI (Oldenburg Burnout Inventory)</td>
+              <td>16 itens em escala Likert (1-4). Avalia duas subescalas: Exaustão e Desengajamento, com inversão matemática dos itens positivos (fórmula 5-x).</td>
+            </tr>
+            <tr>
+              <td><strong>Ansiedade Generalizada</strong></td>
+              <td>GAD-7 (Generalized Anxiety Disorder)</td>
+              <td>7 itens com frequência nas últimas 2 semanas (escala 0-3). Escore total contínuo variando de 0 a 21 pontos (unidimensional; alfa de Cronbach = 0,90).</td>
+            </tr>
+            <tr>
+              <td><strong>Sintomas Depressivos</strong></td>
+              <td>PHQ-9 (Patient Health Questionnaire)</td>
+              <td>9 itens com base nos critérios do DSM-IV (escala 0-3). Escore contínuo de 0 a 27 pontos, com ponto de corte clínico ≥ 9 para rastreio comunitário.</td>
+            </tr>
+            <tr>
+              <td><strong>Cultura & Rotina</strong></td>
+              <td>Itens de Elaboração Própria (q12 a q19)</td>
+              <td>Atraso no cronograma (q12), rotina de sono (q14), tempo livre semanal (q15), autocobrança (q16), pressão externa (q17) e psicoterapia (q19).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top: 14px; text-align: center; font-size: 13px; color: var(--text-muted);">
+        Instrumentos clínicos validados transculturalmente para o contexto brasileiro
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Instrumentos com adaptação transcultural brasileira validada</span>
+      <span>Psicometria e Coleta Estruturada</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: INTERCORRÊNCIA -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Rigor Científico</div>
+        <div class="slide-title">Intercorrência e Decisão Metodológica</div>
+      </div>
+      <div class="slide-number">Slide 5/12</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-4">
+        <div class="card" style="border-top: 4px solid #64748B;">
+          <div class="card-title" style="font-size: 15px;">Coleta Piloto (N=124)</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Coleta digital inicial via amostragem em bola de neve (grupos de WhatsApp e redes sociais) abrangendo diversas faculdades.</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #EF4444;">
+          <div class="card-title" style="font-size: 15px; color: #991B1B;">Auditoria Técnica</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Identificação de dispersão excessiva da amostra e omissão do valor nulo (zero) nas escalas GAD-7 e PHQ-9 do formulário.</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #F59E0B;">
+          <div class="card-title" style="font-size: 15px; color: #92400E;">Decisão com Orientação</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Descarte total da base de 124 respostas para fins inferenciais, priorizando a validade clínica e o rigor em vez do volume bruto.</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title" style="font-size: 15px; color: #0F766E;">Readequação (N=146)</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Formulário corrigido e aplicação presencial via QR Code em salas de aula restrita aos discentes da FATEC Baixada Santista.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>A transparência nas intercorrências metodológicas assegura a idoneidade dos achados finais</span>
+      <span>Cronograma readequado de Março a Agosto/2026</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: PIPELINE DE DADOS -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Pipeline de Dados</div>
+        <div class="slide-title">Dos Dados Brutos aos Analisáveis</div>
+      </div>
+      <div class="slide-number">Slide 6/12</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-4">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title" style="font-size: 15px;">1. Ingestão & Limpeza</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Exportação de 146 respostas do Google Forms para planilhas. Padronização cadastral de texto livre (cidades de residência, cursos e semestres).</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title" style="font-size: 15px;">2. Engenharia Clínica</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Cálculo dos escores do GAD-7 (0-21) e PHQ-9 (0-27) por soma direta. Inversão matemática dos itens positivos do OLBI pela regra (5 - x).</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title" style="font-size: 15px;">3. Recodificação</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Agrupamento de categorias nominais de baixa frequência (variável de dependentes convertida em formato dicotômico Sim/Não) para viabilizar os testes.</p>
+        </div>
+
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title" style="font-size: 15px;">4. Banco Consolidado</div>
+          <p style="font-size: 13px; color: var(--text-muted);">Eliminação de colunas intermediárias de cálculo e importação do banco estruturado no software Jamovi para o processamento inferencial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Pipeline estruturado garantindo rastreabilidade e integridade das variáveis psicométricas</span>
+      <span>Ambiente: Excel / Power Query / Jamovi</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: ESTRATÉGIA ESTATÍSTICA -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Metodologia Analítica</div>
+        <div class="slide-title">Estratégia Estatística e Filtro Duplo</div>
+      </div>
+      <div class="slide-number">Slide 7/12</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Testes Não Paramétricos (Jamovi)</div>
+          <ul class="bullet-list" style="font-size: 13.5px;">
+            <li><strong>Avaliação de Normalidade:</strong> Teste de Shapiro-Wilk revelou desvios significativos em GAD (p &lt; 0,001) e PHQ (p = 0,031), embasando a opção por testes não paramétricos.</li>
+            <li><strong>Correlação de Spearman (rs):</strong> Para avaliar a magnitude e a direção da associação entre variáveis ordinais e contínuas.</li>
+            <li><strong>Comparações de Grupos:</strong> Teste de Mann-Whitney (2 grupos) e Kruskal-Wallis com post-hoc Dwass-Steel-Critchlow-Fligner (DSCF).</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border: 2px dashed var(--accent); background: #F8FAFC;">
+          <div class="card-title" style="color: var(--accent);">Critério do Filtro Duplo (Cohen, 1988)</div>
+          <ul class="bullet-list" style="font-size: 13.5px;">
+            <li><strong>Significância Estatística:</strong> Exclusão de associações com p ≥ 0,05 para assegurar que os efeitos não ocorram ao acaso.</li>
+            <li><strong>Relevância Prática (Tamanho de Efeito):</strong> Exclusão de associações fracas. Foram retidos apenas efeitos moderados a fortes:
+              <ul style="padding-left: 14px; margin-top: 6px; color: var(--text-muted);">
+                <li>Spearman: |rs| ≥ 0,30</li>
+                <li>Mann-Whitney: |r| ≥ 0,30</li>
+                <li>Kruskal-Wallis: ε² ≥ 0,06 (Epsilon-quadrado)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Prevenção de conclusões fundamentadas exclusivamente em valores de p em grandes volumes de testes</span>
+      <span>Software Analítico: Jamovi (v. 2.6)</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: PERFIL AMOSTRAL -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Perfil Amostral (N = 146)</div>
+        <div class="slide-title">Distribuição dos Discentes por Curso</div>
+      </div>
+      <div class="slide-number">Slide 8/12</div>
+    </div>
+
+    <div class="slide-body" style="flex-direction: column; gap: 18px;">
+      <div class="grid-4">
+        <div class="stat-box">
+          <div class="stat-number">65,1%</div>
+          <div class="stat-label">Jovens de 18 a 22 anos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">45,9%</div>
+          <div class="stat-label">Renda per capita até 2 SM</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">61,0%</div>
+          <div class="stat-label">Gênero masculino</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">67,8%</div>
+          <div class="stat-label">Do 1º ao 3º semestre</div>
+        </div>
+      </div>
+
+      <div class="card" style="flex: 1; padding: 14px 20px;">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 2px;">
+              <span><strong>Ciência de Dados</strong></span>
+              <span>47,3% (n=69)</span>
+            </div>
+            <div style="background: #E2E8F0; border-radius: 4px; height: 12px; overflow: hidden;">
+              <div style="background: #0F766E; width: 47.3%; height: 100%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 2px;">
+              <span><strong>Gestão Portuária</strong></span>
+              <span>22,6% (n=33)</span>
+            </div>
+            <div style="background: #E2E8F0; border-radius: 4px; height: 12px; overflow: hidden;">
+              <div style="background: #0284C7; width: 22.6%; height: 100%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 2px;">
+              <span><strong>Análise e Desenv. Sistemas</strong></span>
+              <span>12,3% (n=18)</span>
+            </div>
+            <div style="background: #E2E8F0; border-radius: 4px; height: 12px; overflow: hidden;">
+              <div style="background: #6366F1; width: 12.3%; height: 100%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 2px;">
+              <span><strong>Sistemas para Internet</strong></span>
+              <span>8,2% (n=12)</span>
+            </div>
+            <div style="background: #E2E8F0; border-radius: 4px; height: 12px; overflow: hidden;">
+              <div style="background: #F59E0B; width: 8.2%; height: 100%;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 2px;">
+              <span><strong>Logística e Gestão</strong></span>
+              <span>9,6% (n=14)</span>
+            </div>
+            <div style="background: #E2E8F0; border-radius: 4px; height: 12px; overflow: hidden;">
+              <div style="background: #64748B; width: 9.6%; height: 100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size: 12px; color: var(--text-muted); text-align: center;">
+        Nota Amostral: A concentração em Ciência de Dados decorre da amostragem por conveniência; o perfil reflete a missão da instituição de inclusão e mobilidade social.
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Amostra composta integralmente por discentes da FATEC Baixada Santista - Rubens Lara</span>
+      <span>Slide 8/12</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: RESULTADOS PRINCIPAIS (TABELA EXATA DA IMAGEM ANEXADA) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Filtro Duplo</div>
+        <div class="slide-title">Matriz de Associações Críticas</div>
+      </div>
+      <div class="slide-number">Slide 9/12</div>
+    </div>
+
+    <div class="slide-body" style="flex-direction: column; justify-content: center;">
+      <div class="card" style="padding: 12px 16px; background: #FFFFFF; border-radius: 6px;">
+        <table class="table-slide9">
+          <thead>
+            <tr>
+              <th style="width: 8%;">Var.</th>
+              <th style="width: 32%;">Descrição</th>
+              <th style="width: 10%;">Métrica</th>
+              <th class="num-col" style="width: 12%;">GAD-7</th>
+              <th class="num-col" style="width: 12%;">PHQ-9</th>
+              <th class="num-col" style="width: 13%;">Deseng.</th>
+              <th class="num-col" style="width: 13%;">Exaustão</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>q12</strong></td>
+              <td>Cumprimento do cronograma</td>
+              <td><em>r<sub>s</sub></em></td>
+              <td class="num-col bg-orange-cell">0,318<sup>***</sup></td>
+              <td class="num-col bg-orange-cell">0,305<sup>***</sup></td>
+              <td class="num-col">—</td>
+              <td class="num-col bg-orange-cell">0,475<sup>***</sup></td>
+            </tr>
+            <tr>
+              <td><strong>q14</strong></td>
+              <td>Padrão de sono na semana</td>
+              <td><em>ε<sup>2</sup></em></td>
+              <td class="num-col bg-green-cell">0,152<sup>***</sup></td>
+              <td class="num-col bg-green-cell">0,211<sup>***</sup></td>
+              <td class="num-col bg-orange-cell">0,103<sup>**</sup></td>
+              <td class="num-col bg-green-cell">0,229<sup>***</sup></td>
+            </tr>
+            <tr>
+              <td><strong>q15</strong></td>
+              <td>Dias dedicados ao tempo livre</td>
+              <td><em>r<sub>s</sub></em></td>
+              <td class="num-col">—</td>
+              <td class="num-col">—</td>
+              <td class="num-col">—</td>
+              <td class="num-col bg-orange-cell">-0,330<sup>***</sup></td>
+            </tr>
+            <tr>
+              <td><strong>q17</strong></td>
+              <td>Pressão por expectativas externas</td>
+              <td><em>r<sub>s</sub></em></td>
+              <td class="num-col bg-orange-cell">0,417<sup>***</sup></td>
+              <td class="num-col bg-orange-cell">0,429<sup>***</sup></td>
+              <td class="num-col">—</td>
+              <td class="num-col bg-orange-cell">0,334<sup>***</sup></td>
+            </tr>
+            <tr>
+              <td><strong>q19</strong></td>
+              <td>Acompanhamento psicológico</td>
+              <td><em>ε<sup>2</sup></em></td>
+              <td class="num-col bg-green-cell">0,225<sup>***</sup></td>
+              <td class="num-col bg-green-cell">0,195<sup>***</sup></td>
+              <td class="num-col bg-orange-cell">0,063<sup>*</sup></td>
+              <td class="num-col bg-green-cell">0,142<sup>***</sup></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top: 12px; font-size: 11.5px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E2E8F0; padding-top: 8px;">
+          <div>
+            <em>Nota.</em> <em>r<sub>s</sub></em>: Coeficiente de Spearman; <em>ε<sup>2</sup></em>: Epsilon quadrado (Kruskal-Wallis). 
+            * <em>p</em> &lt; 0,05; ** <em>p</em> &lt; 0,01; *** <em>p</em> &lt; 0,001. Efeitos classificados conforme Cohen (1988).
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: #FEF3C7; border: 1px solid #F59E0B; display: inline-block;"></span> Moderado</span>
+            <span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: #DCFCE7; border: 1px solid #22C55E; display: inline-block;"></span> Forte / Grande</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Síntese consolidada a partir da Tabela 15 do Relatório Final da Pesquisa</span>
+      <span>Slide 9/12</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: DISCUSSÃO E INTERPRETAÇÃO -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Interpretação e Cuidados</div>
+        <div class="slide-title">O Que os Resultados Significam?</div>
+      </div>
+      <div class="slide-number">Slide 10/12</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card" style="border-top: 4px solid var(--accent);">
+          <div class="card-title">O Que os Dados Mostram</div>
+          <ul class="bullet-list" style="font-size: 13.5px;">
+            <li><strong>Vigilância Temporal:</strong> A autopercepção de atraso nas tarefas acadêmicas está intimamente ligada à exaustão física e emocional, validando a teoria de Han.</li>
+            <li><strong>Demandas Externas:</strong> A pressão de professores, familiares e mercado de trabalho é introjetada pelo aluno, escalando sintomas depressivos e ansiosos.</li>
+            <li><strong>Demanda Reprimida:</strong> Alunos que declararam 'Não fazer psicoterapia, mas precisar' tiveram escores significativamente piores do que os que não precisam (p &lt; 0,001).</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-top: 4px solid #F59E0B; background: #FFFBEB;">
+          <div class="card-title" style="color: #92400E;">O Que NÃO Podemos Concluir</div>
+          <ul class="bullet-list" style="font-size: 13.5px; color: #78350F;">
+            <li><strong>Ausência de Causalidade:</strong> Por se tratar de um estudo transversal, as associações refletem fatores concomitantes, e não relações diretas de causa e efeito.</li>
+            <li><strong>Causalidade Reversa:</strong> É plausível que estudantes com maior sofrimento psíquico enfrentem maior dificuldade em gerir o tempo e sintam mais a pressão.</li>
+            <li><strong>Natureza Bivariada:</strong> As correlações reportam relações brutas entre pares de variáveis, sem controle simultâneo de renda ou carga de trabalho.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Rigor epistemológico: diferenciar com precisão associação estatística de causalidade clínica</span>
+      <span>Slide 10/12</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: LIMITAÇÕES E TRABALHOS FUTUROS -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Fronteiras da Pesquisa</div>
+        <div class="slide-title">Limitações e Agenda Futura</div>
+      </div>
+      <div class="slide-number">Slide 11/12</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title" style="color: #64748B;">Limitações Metodológicas</div>
+          <ul class="bullet-list" style="font-size: 13px;">
+            <li><strong>Amostragem por Conveniência:</strong> Impossibilidade de generalização estatística para o ensino superior amplo; forte concentração no curso da autora (47,3%).</li>
+            <li><strong>Taxa de Resposta Não Calculada:</strong> Ausência de registro do volume total de alunos expostos ao formulário presencial e digital.</li>
+            <li><strong>Métricas Pontuais:</strong> Variáveis de produtividade avaliadas por itens únicos autorreferidos, sem validação psicométrica de escala prévia.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="color: var(--accent);">Direcionamentos Futuros</div>
+          <ul class="bullet-list" style="font-size: 13px;">
+            <li><strong>Validação Psicométrica:</strong> Construção de instrumento multidimensional dedicado a mensurar a 'Cultura da Produtividade Discente' no Brasil.</li>
+            <li><strong>Modelagem Multivariada:</strong> Aplicação de Regressões Múltiplas e Modelagem de Equações Estruturais (SEM) com controle de variáveis de confusão.</li>
+            <li><strong>Delineamento Longitudinal:</strong> Acompanhamento de coortes de alunos do 1º ao 6º semestre para investigar causalidade no tempo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>A identificação transparente de limitações estabelece as bases para futuros trabalhos científicos</span>
+      <span>Slide 11/12</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: DIRETRIZES E ENCERRAMENTO -->
+  <div class="slide">
+    <div class="slide-header">
+      <div>
+        <div class="slide-category">Recomendações Práticas</div>
+        <div class="slide-title">5 Diretrizes Institucionais Propostas</div>
+      </div>
+      <div class="slide-number">Slide 12/12</div>
+    </div>
+
+    <div class="slide-body" style="flex-direction: column; justify-content: space-between;">
+      <div class="grid-3">
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 700; color: var(--primary); font-size: 14px; margin-bottom: 4px;">1. Núcleo Psicológico</div>
+          <p style="font-size: 12.5px; color: var(--text-muted);">Estruturação de triagem e acolhimento clínico permanente na própria unidade para atender a expressiva demanda discente reprimida (q19).</p>
+        </div>
+
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 700; color: var(--primary); font-size: 14px; margin-bottom: 4px;">2. Gestão do Tempo</div>
+          <p style="font-size: 12.5px; color: var(--text-muted);">Oficinas práticas de planejamento realista de estudos no calendário acadêmico, apoiando ingressantes na transição universitária (q12).</p>
+        </div>
+
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 700; color: var(--primary); font-size: 14px; margin-bottom: 4px;">3. Higiene do Sono</div>
+          <p style="font-size: 12.5px; color: var(--text-muted);">Orientação docente para evitar a fixação de prazos de entrega virtuais em horários de madrugada, favorecendo o descanso regular (q14).</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 700; color: var(--primary); font-size: 14px; margin-bottom: 4px;">4. Preservação do Tempo Livre</div>
+          <p style="font-size: 12.5px; color: var(--text-muted);">Garantia de períodos livres no calendário sem atribuição de atividades obrigatórias em fins de semana e feriados (q15).</p>
+        </div>
+
+        <div class="card" style="padding: 14px;">
+          <div style="font-weight: 700; color: var(--primary); font-size: 14px; margin-bottom: 4px;">5. Espaços de Diálogo</div>
+          <p style="font-size: 12.5px; color: var(--text-muted);">Rodas de conversa entre docentes e alunos para ressignificar o erro e o tempo de aprendizagem como etapas normais da formação (q17).</p>
+        </div>
+      </div>
+
+      <div style="background: var(--primary); color: #FFFFFF; padding: 12px 20px; border-radius: 8px; text-align: center; font-size: 14px; font-family: 'Merriweather', serif;">
+        Do dado bruto à evidência: Ciência de Dados a serviço da promoção da saúde mental acadêmica
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>Agradecimentos: Orientação, FATEC Rubens Lara, CNPq</span>
+      <span>Slide 12/12</span>
+    </div>
+  </div>
+
+</body>
+</html>
